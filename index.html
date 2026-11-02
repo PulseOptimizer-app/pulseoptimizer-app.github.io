@@ -10,7 +10,9 @@
 <meta property="og:image" content="https://pulseoptimizer-app.github.io/img/og.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#F6F8FC">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F6F8FC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0F1C" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/svg+xml" href="img/icon-small.svg">
 <link rel="apple-touch-icon" href="img/icon-180.png">
@@ -35,6 +37,45 @@
     --bad: #D14343;
     --grad: linear-gradient(100deg, var(--cyan), var(--blue) 55%, var(--violet));
     --radius: 14px;
+    --surface: #FFFFFF;
+    --nav-bg: rgba(246,248,252,.86);
+    --btn-bg: #0E1530;
+    --btn-fg: #FFFFFF;
+    --btn-hover: #1B2550;
+    --off-trace: #A3ADC4;
+    --verdict-bg: #FFF8EB;
+    --verdict-rule: #F3E2BF;
+    --band-bg: #0F1530;
+    --band-border: transparent;
+    --panel-shadow: 0 30px 80px -40px rgba(14,21,48,.35), 0 2px 6px rgba(14,21,48,.04);
+    --link: #2563EB;
+  }
+
+  /* Follows the device's light/dark setting */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0B0F1C;
+      --paper-2: #161C2F;
+      --ink: #E8ECF7;
+      --slate: #A2ABC4;
+      --faint: #6F7894;
+      --rule: #232B44;
+      --good: #34D399;
+      --warn: #F2B24A;
+      --bad: #F87171;
+      --surface: #121829;
+      --nav-bg: rgba(11,15,28,.82);
+      --btn-bg: #E8ECF7;
+      --btn-fg: #0B0F1C;
+      --btn-hover: #FFFFFF;
+      --off-trace: #56607E;
+      --verdict-bg: rgba(242,178,74,.08);
+      --verdict-rule: rgba(242,178,74,.22);
+      --band-bg: #111833;
+      --band-border: #222B4A;
+      --panel-shadow: 0 30px 80px -40px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.02);
+      --link: #7DB4FF;
+    }
   }
   * { box-sizing: border-box; margin: 0; }
   html { scroll-behavior: smooth; }
@@ -49,7 +90,7 @@
   :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
 
   /* nav */
-  .nav { position: sticky; top: 0; z-index: 10; background: rgba(246,248,252,.86); backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+  .nav { position: sticky; top: 0; z-index: 10; background: var(--nav-bg); backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid transparent; transition: border-color .2s; }
   .nav.scrolled { border-bottom-color: var(--rule); }
   .nav .wrap { display: flex; align-items: center; height: 68px; gap: 32px; }
   .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; font-size: 19px; letter-spacing: -.01em; text-decoration: none; }
@@ -61,13 +102,12 @@
   /* buttons */
   .btn { display: inline-flex; align-items: center; gap: 10px; height: 50px; padding: 0 24px; border-radius: 12px; font: 600 16px/1 inherit; font-family: inherit; text-decoration: none; transition: background .15s, box-shadow .15s, transform .1s; }
   .btn:active { transform: translateY(1px); }
-  .btn-primary { background: var(--ink); color: #fff; box-shadow: 0 1px 0 rgba(255,255,255,.12) inset, 0 8px 24px -10px rgba(14,21,48,.55); }
-  .btn-primary:hover { background: #1B2550; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); box-shadow: 0 1px 0 rgba(255,255,255,.12) inset, 0 8px 24px -10px rgba(14,21,48,.55); }
+  .btn-primary:hover { background: var(--btn-hover); }
   .btn-quiet { color: var(--ink); background: transparent; border: 1px solid var(--rule); }
-  .btn-quiet:hover { background: #fff; }
+  .btn-quiet:hover { background: var(--surface); }
   .btn svg { width: 18px; height: 18px; flex: none; }
   .nav .btn { height: 40px; padding: 0 16px; font-size: 14.5px; }
-  .nav-links + .btn { margin-left: 0; } .nav .wrap > .btn { margin-left: auto; } .nav-links ~ .btn { margin-left: 0; }
   @media (max-width: 980px) { .nav .wrap > .btn { margin-left: auto; } }
 
   /* hero */
@@ -78,7 +118,7 @@
   .fine { margin-top: 16px; font-size: 14px; color: var(--faint); }
 
   /* the measurement panel (the one bold element) */
-  .panel { background: #fff; border: 1px solid var(--rule); border-radius: 20px; box-shadow: 0 30px 80px -40px rgba(14,21,48,.35), 0 2px 6px rgba(14,21,48,.04); overflow: hidden; }
+  .panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 20px; box-shadow: var(--panel-shadow); overflow: hidden; }
   .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 22px; border-bottom: 1px solid var(--rule); }
   .panel-title { font-weight: 600; font-size: 15px; }
   .panel-title small { display: block; font-weight: 400; color: var(--faint); font-size: 13px; margin-top: 2px; }
@@ -89,7 +129,7 @@
   .chart .grid line { stroke: var(--rule); stroke-width: 1; }
   .chart .axis text { fill: var(--faint); font-size: 11px; font-family: inherit; }
   .trace { fill: none; stroke-width: 1.6; stroke-linejoin: round; }
-  .trace.off { stroke: #A3ADC4; }
+  .trace.off { stroke: var(--off-trace); }
   .trace.on { stroke: url(#traceGrad); stroke-width: 1.8; }
   .draw { stroke-dasharray: var(--len); stroke-dashoffset: var(--len); animation: draw 1.8s cubic-bezier(.3,.6,.2,1) forwards; }
   .draw.on { animation-delay: .35s; }
@@ -100,7 +140,7 @@
   .stat dt { font-size: 13px; color: var(--faint); }
   .stat dd { font-variant-numeric: tabular-nums; font-size: 22px; font-weight: 700; letter-spacing: -.01em; margin-top: 2px; }
   .stat dd small { font-size: 13px; font-weight: 500; color: var(--slate); }
-  .verdict { display: flex; gap: 14px; align-items: flex-start; padding: 16px 22px; background: #FFF8EB; border-top: 1px solid #F3E2BF; font-size: 15px; }
+  .verdict { display: flex; gap: 14px; align-items: flex-start; padding: 16px 22px; background: var(--verdict-bg); border-top: 1px solid var(--verdict-rule); font-size: 15px; }
   .verdict b { color: var(--warn); }
   .verdict .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--warn); margin-top: 7px; flex: none; }
   .caption { margin-top: 12px; font-size: 13px; color: var(--faint); text-align: right; }
@@ -124,7 +164,7 @@
   .checks span { color: var(--slate); font-size: 15.5px; }
 
   /* dark product band */
-  .band { background: var(--navy); color: #E7EBF6; border-radius: 28px; margin: 0 16px; padding: 88px 0; position: relative; overflow: hidden; }
+  .band { background: var(--band-bg); border: 1px solid var(--band-border); color: #E7EBF6; border-radius: 28px; margin: 0 16px; padding: 88px 0; position: relative; overflow: hidden; }
   .band::before { content: ""; position: absolute; inset: auto -20% -60% 30%; height: 120%; background: radial-gradient(closest-side, rgba(139,108,248,.28), transparent); pointer-events: none; }
   .band h2 { color: #fff; }
   .band .intro { color: #A9B2CC; }
@@ -156,7 +196,7 @@
   .ledger td { padding: 18px 16px 18px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
   .ledger td:first-child { font-weight: 600; width: 30%; }
   .ledger td:last-child { color: var(--slate); }
-  .ledger a { color: var(--blue); text-underline-offset: 3px; }
+  .ledger a { color: var(--link); text-underline-offset: 3px; }
   .verdict-cell { white-space: nowrap; font-weight: 600; }
   .v-kept { color: var(--good); } .v-gated { color: var(--warn); } .v-cut { color: var(--bad); }
   .ledger-note { margin-top: 18px; color: var(--faint); font-size: 14px; }
@@ -172,7 +212,7 @@
   .promises { list-style: none; padding: 0; border-top: 1px solid var(--rule); }
   .promises li { break-inside: avoid; padding: 14px 0 14px 32px; position: relative; border-bottom: 1px solid var(--rule); }
   .promises li::before { content: ""; position: absolute; left: 2px; top: 21px; width: 14px; height: 8px; border-left: 2.5px solid var(--good); border-bottom: 2.5px solid var(--good); transform: rotate(-45deg); }
-  .verify { margin-top: 40px; background: #fff; border: 1px solid var(--rule); border-radius: var(--radius); padding: 26px 28px; }
+  .verify { margin-top: 40px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 26px 28px; }
   .verify h3 { font-size: 19px; font-weight: 700; }
   .verify p { color: var(--slate); margin-top: 6px; font-size: 15.5px; }
   .verify code { display: block; max-width: 100%; margin-top: 14px; padding: 14px 16px; background: var(--paper-2); border-radius: 10px; font: 500 14.5px/1.4 ui-monospace, "Cascadia Mono", Consolas, monospace; overflow-x: auto; white-space: nowrap; }
@@ -257,7 +297,7 @@
       <div class="panel" role="img" aria-label="Frame times with a tweak off and on overlap almost completely; Pulse reports no measurable change.">
         <div class="panel-head">
           <div class="panel-title">Ultimate Performance power plan<small>5 runs off, 5 runs on, alternating</small></div>
-          <div class="legend"><span><i style="background:#A3ADC4"></i>Off</span><span><i style="background:var(--grad)"></i>On</span></div>
+          <div class="legend"><span><i style="background:var(--off-trace)"></i>Off</span><span><i style="background:var(--grad)"></i>On</span></div>
         </div>
         <svg class="chart" id="chart" viewBox="0 0 640 260" aria-hidden="true"></svg>
         <dl class="stats">
@@ -346,7 +386,7 @@
     </div>
   </section>
 
-  <section id="safety" style="background:#fff;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
+  <section id="safety" style="background:var(--surface);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
     <div class="wrap">
       <h2>Built to be trusted with your PC.</h2>
       <p class="intro">These promises are checked by automated tests on every build. If the code ever breaks one, the build fails.</p>
