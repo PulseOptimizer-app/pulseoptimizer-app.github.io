@@ -269,6 +269,7 @@
     <a class="brand" href="#top"><img src="img/icon-small.svg" alt="" width="34" height="34">Pulse</a>
     <nav class="nav-links" aria-label="Main">
       <a href="#diagnose">Diagnose</a>
+      <a href="#games">Games</a>
       <a href="#evidence">Evidence</a>
       <a href="#measure">Measure</a>
       <a href="#safety">Safety</a>
@@ -320,7 +321,7 @@
       <ul class="checks">
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><div><b>Monitor plugged into the wrong port</b><span>A cable in the motherboard instead of the graphics card makes games run on the weak built-in chip.</span></div></li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16v8H4zM7 9V6M11 9V6M15 9V6M8 17v2M16 17v2"/></svg><div><b>Memory in single-channel mode or at its slow default speed</b><span>One stick, the wrong slots, or XMP/EXPO off can cost a lot of FPS in CPU-heavy games.</span></div></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><div><b>A monitor set below its refresh rate</b><span>A 144 Hz screen left at 60 Hz is the most common free upgrade there is.</span></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><div><b>A monitor below its refresh rate, or held back by its cable</b><span>One click switches a 144 Hz screen left at 60 Hz. Pulse also spots cables and ports that can't carry the full refresh rate.</span></div></li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18v10H3zM7 12h.01"/></svg><div><b>Games installed on a hard drive</b><span>Pulse names them and shows how to move them to an SSD without re-downloading.</span></div></li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0M12 19.5h.01"/></svg><div><b>Wi-Fi lag and slow Ethernet links</b><span>Including the 2.4 GHz band and cables stuck at 100 Mbps.</span></div></li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"/><circle cx="12" cy="12" r="3"/></svg><div><b>A CPU that throttles under load</b><span>A short load test shows whether heat or power limits are holding it back.</span></div></li>
@@ -331,7 +332,7 @@
   <div class="band">
     <div class="wrap">
       <h2>Everything explained before anything changes.</h2>
-      <p class="intro">Every finding says what Pulse saw, why it matters and what to do. Every tweak shows the exact setting it touches and links to the source.</p>
+      <p class="intro">Every finding says what Pulse saw, why it matters and exactly how to fix it, step by step, with the menus for your Windows version, graphics card and motherboard. </p>
       <div class="app" aria-hidden="true">
         <div class="app-bar"><img src="img/icon-small.svg" alt="">Pulse Optimizer</div>
         <div class="app-body">
@@ -370,6 +371,21 @@
         </tbody>
       </table>
       <p class="ledger-note">Automated tests make sure cut tweaks can never come back in a future version.</p>
+    </div>
+  </section>
+
+  <section id="games" style="padding-top:24px">
+    <div class="wrap split">
+      <div class="sticky">
+        <h2>Lower the delay in the games you play.</h2>
+        <p class="intro">Pick a game and Pulse builds a checklist for your graphics card and monitor, then measures the delay before and after.</p>
+      </div>
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><div><b>The right low-latency setting for your card</b><span>NVIDIA Reflex or AMD Anti-Lag 2 where the game has it, with the exact menu. Otherwise the driver's own option for that game.</span></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><div><b>Your frame cap, worked out</b><span>G-SYNC or FreeSync with a cap 3 below your refresh rate, like 141 FPS on a 144 Hz screen.</span></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0-6 6v6a6 6 0 0 0 12 0V9a6 6 0 0 0-6-6zM12 3v6"/></svg><div><b>Mouse and display checks</b><span>Highest polling rate and refresh rate, confirmed by Pulse where it can see them.</span></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg><div><b>A 30-second delay check</b><span>Records your real delay and FPS while you play, so you can see what the checklist changed.</span></div></li>
+      </ul>
     </div>
   </section>
 
