@@ -418,7 +418,7 @@
         <div class="verify">
           <h3>Verify your download</h3>
           <p>Each release is built by GitHub from the public code, with a SHA-256 checksum and signed build proof. With the GitHub CLI installed, run:</p>
-          <code>gh attestation verify PulseOptimizer.zip --repo PulseOptimizer-app/PulseOptimizer</code>
+          <code>gh attestation verify PulseOptimizer.exe --repo PulseOptimizer-app/PulseOptimizer</code>
         </div>
       </div>
     </div>
@@ -470,16 +470,18 @@
 <script>
   const REPO = "PulseOptimizer-app/PulseOptimizer";
 
-  // Download buttons go straight to the latest release's zip.
-  document.querySelectorAll(".dl").forEach(a => a.href = `https://github.com/${REPO}/releases/latest/download/PulseOptimizer.zip`);
+  // Download buttons go straight to the latest release's exe.
+  document.querySelectorAll(".dl").forEach(a => a.href = `https://github.com/${REPO}/releases/latest/download/PulseOptimizer.exe`);
 
   // Show the current version and size under the download buttons.
   fetch(`https://api.github.com/repos/${REPO}/releases/latest`)
     .then(r => r.ok ? r.json() : null)
     .then(rel => {
       if (!rel) return;
-      const zip = (rel.assets || []).find(a => a.name === "PulseOptimizer.zip");
-      const size = zip ? `, ${Math.round(zip.size / 1048576)} MB` : "";
+      // Releases from v0.2.0 are one .exe; older ones were a .zip. Link whichever this release has.
+      const file = (rel.assets || []).find(a => a.name === "PulseOptimizer.exe") || (rel.assets || []).find(a => a.name === "PulseOptimizer.zip");
+      if (file) document.querySelectorAll(".dl").forEach(a => a.href = file.browser_download_url);
+      const size = file ? `, ${Math.round(file.size / 1048576)} MB` : "";
       const v = rel.tag_name.replace(/^v/, "");
       document.querySelectorAll(".ver").forEach(el => el.textContent = `Version ${v}${size}. Free and open source. Windows 10 and 11, 64-bit.`);
     }).catch(() => {});
