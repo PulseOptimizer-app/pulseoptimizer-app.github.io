@@ -473,15 +473,18 @@
   // Download buttons go straight to the latest release's exe.
   document.querySelectorAll(".dl").forEach(a => a.href = `https://github.com/${REPO}/releases/latest/download/PulseOptimizer.exe`);
 
-  // Show the current version and size under the download buttons.
-  fetch(`https://api.github.com/repos/${REPO}/releases/latest`)
+  // Show the current version and size under the download buttons. A new release takes about 5 minutes to build its
+  // .exe, so use the newest release that already has one (the previous version meanwhile) instead of a dead link.
+  fetch(`https://api.github.com/repos/${REPO}/releases?per_page=10`)
     .then(r => r.ok ? r.json() : null)
-    .then(rel => {
+    .then(list => {
+      if (!Array.isArray(list)) return;
+      const pick = rel => (rel.assets || []).find(a => a.name === "PulseOptimizer.exe") || (rel.assets || []).find(a => a.name === "PulseOptimizer.zip");
+      const rel = list.find(r => !r.draft && !r.prerelease && pick(r));
       if (!rel) return;
-      // Releases from v0.2.0 are one .exe; older ones were a .zip. Link whichever this release has.
-      const file = (rel.assets || []).find(a => a.name === "PulseOptimizer.exe") || (rel.assets || []).find(a => a.name === "PulseOptimizer.zip");
-      if (file) document.querySelectorAll(".dl").forEach(a => a.href = file.browser_download_url);
-      const size = file ? `, ${Math.round(file.size / 1048576)} MB` : "";
+      const file = pick(rel);
+      document.querySelectorAll(".dl").forEach(a => a.href = file.browser_download_url);
+      const size = `, ${Math.round(file.size / 1048576)} MB`;
       const v = rel.tag_name.replace(/^v/, "");
       document.querySelectorAll(".ver").forEach(el => el.textContent = `Version ${v}${size}. Free and open source. Windows 10 and 11, 64-bit.`);
     }).catch(() => {});
